@@ -1,39 +1,80 @@
-package com.example.myapplication;
+package com.example.calculator;
 
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.WindowInsetsCompat;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-
-    private static final String VALID_USERNAME = "sandra";
-    private static final String VALID_PASSWORD = "password";
-
+    private EditText numInput1,numInput2;
+    private TextView resultText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        numInput1 = findViewById(R.id.numInput1);
+        numInput2 = findViewById(R.id.numInput2);
+        resultText = findViewById(R.id.resultText);
+        Button btnAdd = findViewById(R.id.btnAdd);
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+        @Override
+            public void onClick(View v) {
 
-        EditText usernameEditText = findViewById(R.id.Username);
-        EditText passwordEditText = findViewById(R.id.password);
-        Button loginButton = findViewById(R.id.login_button);
+                performCalculation ('+');
+            }});
+        Button btnSubtract = findViewById(R.id.btnSubtract);
+        btnSubtract.setOnClickListener(new View.OnClickListener() {
+        @Override
+            public void onClick(View v) {
+                performCalculation ('-');
+            }});
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String username = usernameEditText.getText().toString();
-                String password = passwordEditText.getText().toString();
-                if (VALID_USERNAME.equals(username) && VALID_PASSWORD.equals(password)) {
-                    Toast.makeText(MainActivity.this,"Login Successful" ,Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText( MainActivity.this, "Invalid Credentials" , Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+        Button btnMultiply = findViewById(R.id.btnMultiply);
+        btnMultiply.setOnClickListener(new View.OnClickListener() {
+        @Override
+            public void onClick(View v) {
+                performCalculation ('*');
+            }});
+        Button btnDivide = findViewById(R.id.btnDivide);
+        btnDivide.setOnClickListener(new View.OnClickListener() {
+        @Override
+            public void onClick(View v) {
+                performCalculation ('/');
+
+            }});
+    }
+
+    private void performCalculation(char operation){
+    String Input1 = numInput1.getText().toString();
+    String Input2 = numInput2.getText().toString();
+    double num1 = Double.parseDouble(Input1);
+    double num2 = Double.parseDouble(Input2);
+    double result = 0;
+
+    switch (operation){
+        case '+':
+            result = num1 + num2;
+            break;
+
+        case '-':
+            result = num1 - num2;
+            break;
+
+        case '*':
+            result = num1 * num2;
+            break;
+
+        case '/':
+            result = num1/num2;
+            break;
+
+        default:
+            resultText.setText("Invalid operation");
+            return;
+    }
+    resultText.setText("Result: " + result);
     }
 }
