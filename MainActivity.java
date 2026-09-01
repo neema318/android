@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.registrationform.R;
@@ -18,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
     EditText name,password;
 
     RadioGroup gender;
+
+    Spinner department;
 
     CheckBox terms;
 
@@ -31,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         name = findViewById(R.id.name);
         password = findViewById(R.id.password);
         gender = findViewById(R.id.gender);
+        department = findViewById(R.id.department);
         terms = findViewById(R.id.terms);
         submit = findViewById(R.id.submit);
 
@@ -53,6 +57,11 @@ public class MainActivity extends AppCompatActivity {
 
                 if (gender.getCheckedRadioButtonId() == -1) {
                     Toast.makeText(MainActivity.this, "Select gender", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (department.getSelectedItemPosition() == 0){
+                    Toast.makeText(MainActivity.this,"Please select department",Toast.LENGTH_SHORT).show();
                     return;
                 }
 
